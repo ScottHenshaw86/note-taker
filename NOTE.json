@@ -1,0 +1,36 @@
+{
+    "blocks": [
+        {
+            "type": "p",
+            "style": "bold",
+            "size": 16,
+            "text": "Test #1. It should be 16px and bold."
+        },
+        {
+            "type": "dropdown",
+            "style": "regular",
+            "size": 10,
+            "text": "Test #2. It should be 10px and regular.",
+            "children": [
+                {
+                    "type": "p",
+                    "style": "bold",
+                    "size": 16,
+                    "text": "This is the first block of text in this note. It should be 16px and bold."
+                },
+                {
+                    "type": "p",
+                    "style": "italic",
+                    "size": 24,
+                    "text": "This is the second block of text in this note. It should be 24px and italic."
+                }
+            ]
+        },
+        {
+            "type": "p",
+            "style": "italic",
+            "size": 24,
+            "text": "Test #3. It should be 24px and italic."
+        }
+    ]
+}
