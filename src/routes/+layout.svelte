@@ -1,41 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import '../app.css';
-	import ColorModeToggle from '$lib/ColorModeToggle.svelte';
-	import MenuItem from '$lib/MenuItem.svelte';
-	import AddNewFile from '$lib/icons/AddNewFile.svelte';
-	import HideSidebar from '$lib/icons/HideSidebar.svelte';
-	import ExpandSidebar from '$lib/icons/ExpandSidebar.svelte';
+	import Sidebar from '$lib/Sidebar.svelte';
+	import Header from '$lib/Header.svelte';
 
 	export let data;
 	const notes = JSON.parse(data.data)[0];
-	console.log('NOTES NOTES NOTES:', notes);
 
 	let colorMode: string = 'dark';
 	let sidebarOpen = true;
-
-	function toggleSidebar() {
-		sidebarOpen = !sidebarOpen;
-	}
-
-	function changeColorMode() {
-		colorMode = colorMode === 'dark' ? 'light' : 'dark';
-	}
 
 	let ready: boolean = false;
 	onMount(() => {
 		ready = true;
 		sidebarOpen = window.innerWidth > 750;
-		console.log(window);
 	});
-
-	let creatingNote: boolean = false;
 </script>
 
 <main class={colorMode === 'dark' ? 'dark' : ''}>
 	{#if ready}
 		<div class="bg-white dark:bg-stone-950">
-			<nav
+			<!-- <nav
 				class="bg-white border-b border-gray-200 px-4 py-2.5 bg-stone-100 dark:bg-stone-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50"
 			>
 				<div class="flex justify-between items-center">
@@ -83,60 +68,10 @@
 					</form>
 					<ColorModeToggle {colorMode} on:click={changeColorMode} />
 				</div>
-			</nav>
+			</nav> -->
 
-			<!-- Sidebar -->
-
-			<aside
-				class="fixed top-0 left-0 z-40 w-64 h-screen pt-[3.9rem] transition-transform duration-200 border-r border-gray-200 bg-stone-100 dark:bg-stone-800 dark:border-gray-700 {sidebarOpen
-					? 'translate-x-0'
-					: '-translate-x-full'} "
-				aria-label="Sidenav"
-				id="drawer-navigation"
-			>
-				<button
-					on:click={() => (creatingNote = true)}
-					class="bg-green-400 py-2 px-16 mx-auto mt-2 block rounded-xl"
-				>
-					<AddNewFile size="30" color="white" />
-				</button>
-				{#if creatingNote}
-					<form action="?/createNewNote" method="POST">
-						<input
-							on:keyup={(e) => {
-								if (e.key === 'Enter' && e.currentTarget.value) {
-									console.log('SUBMIT!');
-									creatingNote = false;
-								}
-							}}
-							on:blur={(e) => {
-								if (e.currentTarget.value) {
-									console.log('SUBMIT!');
-									creatingNote = false;
-								}
-							}}
-							type="text"
-							autofocus
-						/>
-					</form>
-				{/if}
-				<div
-					class="scroll_enabled overflow-y-auto py-5 px-3 h-full bg-stone-100 dark:bg-stone-800"
-				>
-					<ul class="space-y-2 dark:text-white">
-						{#each notes as note}
-							<li>
-								<a
-									href="/{note.id}"
-									class="block hover:bg-blue-400 cursor-pointer px-2 py-1 rounded-xl"
-								>
-									{note.title}
-								</a>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			</aside>
+			<Header bind:colorMode bind:sidebarOpen />
+			<Sidebar {notes} {sidebarOpen} />
 
 			<main
 				class="p-4 overflow-y-scroll h-screen pt-20 bg-white dark:bg-stone-950 transition-ml duration-200 dark:text-white {sidebarOpen
