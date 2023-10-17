@@ -37,6 +37,20 @@ CREATE TABLE `blocks` (
   `children_order` json DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+--
+-- Table structure for table `notes`
+--
+
+CREATE TABLE `notes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `block_order` json DEFAULT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Dumping data for table `blocks`
 --
@@ -53,29 +67,13 @@ INSERT INTO `blocks` (`id`, `note_id`, `type`, `parent_id`, `size`, `content`, `
 (9, 2, 'p', NULL, 'base', 'This is the 1st child block of Scott\'s second note. It should be base size.', NULL),
 (10, 2, 'dropdown', NULL, 'base', 'This is the 2nd child block of Scott\'s second note. It is a dropdown with 1 child.', '[11]'),
 (11, 2, 'p', 10, 'xl', 'This is the 1st child block of Scott\'s second note\'s dropdown. It should be xl size.', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notes`
---
-
-CREATE TABLE `notes` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `block_order` json DEFAULT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Dumping data for table `notes`
 --
 
 INSERT INTO `notes` (`id`, `user_id`, `title`, `block_order`, `date_created`, `last_modified`) VALUES
-(1, 1, 'Test Note #1', NULL, '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
-(2, 1, 'Test Note #2', NULL, '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
+(1, 1, 'Test Note #1', '[1, 2, 3]', '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
+(2, 1, 'Test Note #2', '[9, 10]', '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
 (3, 1, 'Test Note #3', NULL, '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
 (4, 2, 'Harvey Test Note #1', NULL, '2023-10-17 11:34:27', '2023-10-17 11:34:27'),
 (5, 2, 'Harvey Test Note #2', NULL, '2023-10-17 11:34:27', '2023-10-17 11:34:27'),

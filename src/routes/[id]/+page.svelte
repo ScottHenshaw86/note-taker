@@ -2,10 +2,8 @@
 	import { page } from '$app/stores';
 	import NoteBlock from '$lib/NoteBlock.svelte';
 	export let data;
-	console.log(data);
-
+	$: blocks = JSON.parse(data.blocks)[0];
 	$: note = JSON.parse(data.note)[0][0];
-	$: content = note.content;
 	$: title = note.title;
 	$: console.log('NOTE:', note);
 
@@ -44,8 +42,8 @@
 		{note.title}
 	</h1>
 {/if}
-{#if content?.blocks}
-	{#each content.blocks as block}
+{#if blocks}
+	{#each blocks as block}
 		<!-- {block.text} -->
 		<NoteBlock {block} />
 		<br />
