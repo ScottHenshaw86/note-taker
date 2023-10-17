@@ -2,10 +2,11 @@
 	import { page } from '$app/stores';
 	import NoteBlock from '$lib/NoteBlock.svelte';
 	export let data;
+	console.log(data);
 
-	$: note = JSON.parse(data.data)[0][0];
+	$: note = JSON.parse(data.note)[0][0];
+	$: content = note.content;
 	$: title = note.title;
-	$: content = JSON.parse(note.content);
 	$: console.log('NOTE:', note);
 
 	let formElement;
@@ -40,7 +41,7 @@
 		on:keypress={() => (editingTitle = true)}
 		class="text-3xl font-bold underline underline-offset-4 mb-4"
 	>
-		{title}
+		{note.title}
 	</h1>
 {/if}
 {#if content?.blocks}

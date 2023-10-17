@@ -5,7 +5,9 @@
 	import Header from '$lib/Header.svelte';
 
 	export let data;
-	const notes = JSON.parse(data.data)[0];
+	const notes = JSON.parse(data.notes)[0];
+
+	console.log('NOTES', notes);
 
 	let colorMode: string = 'dark';
 	let sidebarOpen = true;
