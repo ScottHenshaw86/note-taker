@@ -2,9 +2,14 @@
 	import { enhance } from '$app/forms';
 	import Plus from './icons/Plus.svelte';
 	import Minus from './icons/Minus.svelte';
+	import BlockStore from '$lib/Store.js';
+
+	BlockStore.subscribe((data) => {
+		console.log('DATA FROM STORE:', data);
+	});
 
 	export let block;
-	console.log('BLOCK noteBlok.svelte - ', block);
+	// console.log('BLOCK noteBlok.svelte - ', block);
 
 	const sizes = [
 		'xs',

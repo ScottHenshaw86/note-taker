@@ -1,11 +1,18 @@
 <script>
 	import { page } from '$app/stores';
+	import BlockStore from '$lib/Store.js';
 	import NoteBlock from '$lib/NoteBlock.svelte';
 	export let data;
 	$: blocks = JSON.parse(data.blocks)[0];
 	$: note = JSON.parse(data.note)[0][0];
 	$: title = note.title;
 	$: console.log('NOTE:', note);
+	$: console.log('BLOCKS:', blocks);
+	$: BlockStore.update(() => {
+		console.log('updating store...');
+		return blocks;
+	});
+	$: blockOrder = note.block_order;
 
 	let formElement;
 	let editingTitle = false;
@@ -44,7 +51,6 @@
 {/if}
 {#if blocks}
 	{#each blocks as block}
-		<!-- {block.text} -->
 		<NoteBlock {block} />
 		<br />
 		<br />
